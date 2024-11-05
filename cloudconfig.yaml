@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudconfig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudconfig
+  template:
+    metadata:
+      labels:
+        app: cloudconfig
+    spec:
+      containers:
+      - name: cloudconfig
+        image: cloudconfig:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudconfig
+spec:
+  selector:
+    app: cloudconfig
+  ports:
+    - port: 8888
+      targetPort: 8888

@@ -1,0 +1,195 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-oauth2
+spec:
+  serviceName: "postgres-oauth2"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-oauth2
+  template:
+    metadata:
+      labels:
+        app: postgres-oauth2
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: oauth2_db
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: root
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-carred
+spec:
+  serviceName: "postgres-carred"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-carred
+  template:
+    metadata:
+      labels:
+        app: postgres-carred
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: carred_db
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: root
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-cargreen
+spec:
+  serviceName: "postgres-cargreen"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-cargreen
+  template:
+    metadata:
+      labels:
+        app: postgres-cargreen
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: cargreen_db
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: root
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-carblue
+spec:
+  serviceName: "postgres-carblue"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-carblue
+  template:
+    metadata:
+      labels:
+        app: postgres-carblue
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: carblue_db
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: root
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-oauth2
+spec:
+  selector:
+    app: postgres-oauth2
+  ports:
+    - port: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-carred
+spec:
+  selector:
+    app: postgres-carred
+  ports:
+    - port: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-cargreen
+spec:
+  selector:
+    app: postgres-cargreen
+  ports:
+    - port: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-carblue
+spec:
+  selector:
+    app: postgres-carblue
+  ports:
+    - port: 5432

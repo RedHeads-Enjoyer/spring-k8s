@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carred
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: carred
+  template:
+    metadata:
+      labels:
+        app: carred
+    spec:
+      containers:
+      - name: carred
+        image: carred:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carred
+spec:
+  selector:
+    app: carred
+  ports:
+    - port: 8082
+      targetPort: 8082

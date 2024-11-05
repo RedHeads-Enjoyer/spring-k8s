@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /oauth2
+        pathType: Prefix
+        backend:
+          service:
+            name: oauth2
+            port:
+              number: 8080
+      - path: /carblue
+        pathType: Prefix
+        backend:
+          service:
+            name: carblue
+            port:
+              number: 8081

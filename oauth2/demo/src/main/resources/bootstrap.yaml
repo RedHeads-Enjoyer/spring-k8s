@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: oauth2
+  cloud:
+    config:
+      uri: http://cloudconfig:8888
+      enabled: true
+      fail-fast: true

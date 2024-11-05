@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cargreen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cargreen
+  template:
+    metadata:
+      labels:
+        app: cargreen
+    spec:
+      containers:
+      - name: cargreen
+        image: cargreen:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cargreen
+spec:
+  selector:
+    app: cargreen
+  ports:
+    - port: 8083
+      targetPort: 8083

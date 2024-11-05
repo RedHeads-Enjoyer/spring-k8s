@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Service</title>
+</head>
+<body>
+<h1 th:if="${username != 'null'}" th:text="'Привет, ' + ${username}"></h1>
+
+<h1>Голубые машины</h1>
+<h2>Добавление</h2>
+<form action="/addBlueCar" method="POST">
+    <label for="blueBrand">Brand:</label>
+    <input type="text" id="blueBrand" name="brand" required><br><br>
+    <label for="blueModel">Model:</label>
+    <input type="text" id="blueModel" name="model" required><br><br>
+    <button type="submit">Добавить</button>
+</form>
+<h2>Просмотр</h2>
+<ul>
+    <th:block th:each="car : ${blueCars}">
+        <li>
+            <span th:text="${car.brand}">Brand</span> - <span th:text="${car.model}">Model</span> - <span th:text="${car.color}">Color</span>
+        </li>
+    </th:block>
+</ul>
+
+<h1>Зеленые машины</h1>
+<h2>Добавление</h2>
+<form action="/addGreenCar" method="POST">
+    <label for="greenBrand">Brand:</label>
+    <input type="text" id="greenBrand" name="brand" required><br><br>
+    <label for="greenModel">Model:</label>
+    <input type="text" id="greenModel" name="model" required><br><br>
+    <button type="submit">Добавить</button>
+</form>
+
+<h2>Просмотр</h2>
+<ul>
+    <th:block th:each="car : ${greenCars}">
+        <li>
+            <span th:text="${car.brand}">Brand</span> - <span th:text="${car.model}">Model</span> - <span th:text="${car.color}">Color</span>
+        </li>
+    </th:block>
+</ul>
+
+<h1>Красные машины</h1>
+<h2>Добавление</h2>
+<form action="/addRedCar" method="POST">
+    <label for="redBrand">Brand:</label>
+    <input type="text" id="redBrand" name="brand" required><br><br>
+    <label for="redModel">Model:</label>
+    <input type="text" id="redModel" name="model" required><br><br>
+    <button type="submit">Добавить</button>
+</form>
+
+<h2>Просмотр</h2>
+<ul>
+    <th:block th:each="car : ${redCars}">
+        <li>
+            <span th:text="${car.brand}">Brand</span> - <span th:text="${car.model}">Model</span> - <span th:text="${car.color}">Color</span>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
